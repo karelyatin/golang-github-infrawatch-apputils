@@ -7,7 +7,7 @@
 %global goorg           infrawatch
 %global goproject       apputils
 %global goipath         %{gohost}.%{gosuffix}/%{goorg}/%{goproject}
-%global commit          46ad44e45f12c6b473f4eb0e0634f977b6d9f495
+%global commit          8439bdcd51add05fdd4c22b2248d441cbf79058e
 %global shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 %gometa
@@ -18,14 +18,15 @@ Shared library for infrawatch golang components.}
 %global godocs          README.md
 
 Name:           golang-%{gohost}-%{goorg}-%{goproject}
-Version:        0
-Release:        0.1%{?dist}
+Version:        0.1
+Release:        1%{?dist}
 Summary:        Shared library for infrawatch golang components
 
 License:        # FIXME
 
 URL:            %{gourl}
-Source0:        https://%{goipath}/archive/%{commit}/%{goproject}-%{shortcommit}.tar.gz
+#Source0:        https://%{goipath}/archive/%{commit}/%{goproject}-%{shortcommit}.tar.gz
+Source0:        https://%{goipath}/archive/v%{version}.tar.gz#/%{goproject}-v%{version}.tar.gz
 
 BuildRequires:  golang(github.com/go-ini/ini)
 BuildRequires:  golang(github.com/streadway/amqp)
@@ -46,7 +47,7 @@ Provides:       golang(%{goipath})
 %gopkg
 
 %prep
-%autosetup -n %{goproject}-%{commit}
+%autosetup -n %{goproject}-%{version}
 
 %install
 # copy packages
@@ -74,5 +75,9 @@ popd
 %{gopath}/src/%{goipath}
 
 %changelog
+* Tue Oct 13 2020 Martin Magr <mmagr@redhat.com> - 0.1-1.git8439bdc
+- Updated to latest upstream release
+- Fixed issue #1
+
 * Wed Sep 02 2020 Martin Magr <mmagr@redhat.com> - 0-0.1.20200810git9a73d9
 - Initial package
